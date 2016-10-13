@@ -41,13 +41,5 @@
             android:layout_height="300dp"
             />
 
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Do not click here"/>
-
     </LinearLayout>
 </ScrollView>
