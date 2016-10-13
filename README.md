@@ -2,8 +2,8 @@
 
 -
 
-![App home screen](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png)
-![App log screen](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png)
+![App home screen](https://raw.githubusercontent.com/wiki/grepx/android-clipboard-security/images/homescreen.png)
+![App log screen](https://raw.githubusercontent.com/wiki/grepx/android-clipboard-security/images/logscreen.png)
 
 This project demonstrates a security hole In Android's API that allows any installed application to listen to changes to the clipboard (listen to everything that you copy and paste).
 
@@ -43,6 +43,24 @@ This permission will not be listed by the Play store during install, since it is
 
 With this permission I can capitalise for many years harvesting clipboard data from users who have forgotten that my app is installed or haven't bothered to uninstall it.
 
+### Log which apps are installed on the device
+Android has a few ways to learn about which apps are installed on the device, none of them require any additional permissions. The simplest is to just use `PackageManager`:
+
+```
+final PackageManager pm = getPackageManager();
+List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+for (ApplicationInfo packageInfo : packages) {
+if (packageInfo.packageName.equals("com.agilebits.onepassword") |
+	packageInfo.packageName.equals("com.lastpass.lpandroid")) {
+		log.append(packageInfo.packageName);
+		log.append(" is installed.\n\n");
+	}
+}
+```
+Here I have narrowed the search to just see if 1Password or LastPass is installed, but I could just have easily have targeted bitcoin or banking apps or just sent the entire list to a remote server.
+
+I could also have executed `pm list packages` in a background shell to get this information.
+
 ## The problem with password managers <a id="password-managers"></a>
 Password managers are particularly vulnerable to this attack since many encourage the user to copy and paste passwords out of the app and into the password box for the app in question and many users will use the app like this, trusting the clipboard to be secure.
 
@@ -55,11 +73,11 @@ Both are essentially identical to configure:
 1. Enable auto-fill by going to Settings → Accessibility → LastPass / 1Password. This will enable the password manager to quickly autofill the forms in many apps. 
 2. Enable the password manager's custom keyboard by going to Language & input → Current keyboard → Choose keyboards and switching it on. To enter the password, you need to switch from your usual keyboard to the custom keyboard each time. It will allow you to insert the password without going via the clipboard. This is used when auto-fill fails, which is quite often. **It's not very convenient, but it's the only secure way** (except for typing it).
 
-![1Password keyboard](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png)
+![1Password keyboard](https://raw.githubusercontent.com/wiki/grepx/android-clipboard-security/images/1password.png)
 
 With these 2 methods available, **you should never copy and paste passwords or other important information via the clipboard on Android.**
 
 ## Conclusion
-In my opinion, clipboard manager access in Android should at least require the user to give permission, and it should be a "special permission" that's clearly listed during installation on the Play store. Also, the `android.permission.RECEIVE_BOOT_COMPLETED` should be bumped up to a "special permission" that's listed during installation. The permission system is still abused by many apps though, and users are increasingly blind to permission requests, so this might not be enough.
+In my opinion, clipboard manager access in Android should at least require the user to give permission, and it should be a "special permission" that's clearly listed during installation on the Play store. Also, the `android.permission.RECEIVE_BOOT_COMPLETED` should be bumped up to a "special permission" that's listed during installation. Perhaps an additional permission should be added for requesting to see which apps are installed on the device. The permission system is still abused by many apps though, and users are increasingly blind to permission requests, so this might not be enough.
 
 The next level of protection would require apps to show a persistent notification while they are listening to the clipboard. All of the apps that have a valid use case for listening to the clipboard such as [dictionary lookups](https://play.google.com/store/apps/details?id=com.vaibhav.dictionary) and [clipboard helpers](https://play.google.com/store/apps/details?id=org.rojekti.clipper) do this anyway.
