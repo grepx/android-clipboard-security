@@ -57,7 +57,7 @@ if (packageInfo.packageName.equals("com.agilebits.onepassword") |
 	}
 }
 ```
-Here I have narrowed the search to just see if 1Password or LastPass is installed, but I could just have easily have targeted bitcoin or banking apps or just sent the entire list to a remote server.
+Here I have narrowed the search to just see if 1Password or LastPass is installed, but I could target bitcoin or banking related apps or just send the entire list to a remote server.
 
 I could also have executed `pm list packages` in a background shell to get this information.
 
