@@ -10,7 +10,7 @@ This project demonstrates a security hole In Android's API that allows any insta
 If it isn't clear why this is a genuine security hole consider that sensitive information is copied and pasted all of the time: 
 
 * Many less security conscious users will copy and paste credit card numbers, bank details and passwords from other apps such as notes. 
-* More security conscious users will often use password managers such as LastPass and 1Password and will often copy and paste passwords from the password manager app. How to protect against this attack is [discussed below](password-managers). 
+* More security conscious users will often use password managers such as LastPass and 1Password and will often copy and paste passwords from the password manager app. How to protect against this attack is discussed below. 
 * Personally, I've known about this hole for some time and have always been careful, but recently I entered my credit card number into the wrong field on a form and quickly copied and pasted it across to the correct field before realising what I was doing. 
 
 There are probably many more examples that can be given of reasons why sensitive information can pass through the clipboard. 
