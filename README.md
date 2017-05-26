@@ -1,6 +1,4 @@
-#Android Clipboard Security Hole Demonstration App
-
--
+# Android Clipboard Security Hole Demonstration App
 
 ![App home screen](https://raw.githubusercontent.com/wiki/grepx/android-clipboard-security/images/homescreen.png)
 ![App log screen](https://raw.githubusercontent.com/wiki/grepx/android-clipboard-security/images/logscreen.png)
